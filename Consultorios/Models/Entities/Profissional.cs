@@ -1,5 +1,4 @@
-﻿using Consultorios.Models.Entities;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 namespace Consultorios.Models.Entities
 {
@@ -7,7 +6,7 @@ namespace Consultorios.Models.Entities
     {
         public string Nome { get; set; }
         public bool Ativo { get; set; }
-        public List<Consulta> Consultas { get; set; }
-        public List<Especialidade> Especialidades { get; set; }
+        // public List<Consulta> Consultas { get; set; }
+        // public List<Especialidade> Especialidades { get; set; }
     }
 }

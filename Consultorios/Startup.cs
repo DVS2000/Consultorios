@@ -32,7 +32,12 @@ namespace Consultorios
             services.AddControllers();
             services.AddDbContext<ConsultoriosContext>(options =>
             {
-                options.UseNpgsql(Configuration.GetConnectionString("Default"));     
+                options.UseNpgsql(
+                  Configuration.GetConnectionString("Default"),
+                  assembly => assembly.MigrationsAssembly(
+                    typeof(ConsultoriosContext).Assembly.FullName
+                  )
+                );     
             });
             services.AddCors();
             services.AddSwaggerGen(c =>
