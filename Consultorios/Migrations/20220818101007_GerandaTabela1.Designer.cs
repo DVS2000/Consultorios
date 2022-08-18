@@ -3,15 +3,17 @@ using System;
 using Consultorios.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace Consultorios.Migrations
 {
     [DbContext(typeof(ConsultoriosContext))]
-    partial class ConsultoriosContextModelSnapshot : ModelSnapshot
+    [Migration("20220818101007_GerandaTabela1")]
+    partial class GerandaTabela1
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -24,20 +26,16 @@ namespace Consultorios.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("integer")
-                        .HasColumnName("id")
                         .UseIdentityByDefaultColumn();
 
                     b.Property<DateTime>("Horario")
-                        .HasColumnType("timestamp without time zone")
-                        .HasColumnName("horario");
+                        .HasColumnType("timestamp without time zone");
 
                     b.Property<int>("Idade")
                         .HasColumnType("integer");
 
                     b.Property<string>("NomePaciente")
-                        .IsRequired()
-                        .HasColumnType("varchar(100)")
-                        .HasColumnName("nome_paciente");
+                        .HasColumnType("text");
 
                     b.HasKey("Id");
 
