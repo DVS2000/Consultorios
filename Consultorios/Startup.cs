@@ -1,4 +1,6 @@
 using Consultorios.Context;
+using Consultorios.Repository;
+using Consultorios.Repository.Interfaces;
 using Consultorios.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -29,7 +31,10 @@ namespace Consultorios
         public void ConfigureServices(IServiceCollection services)
         {
 
-            services.AddControllers();
+            services.AddControllers().AddNewtonsoftJson(options =>
+            {
+                options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
+            });
             services.AddDbContext<ConsultoriosContext>(options =>
             {
                 options.UseNpgsql(
@@ -44,8 +49,15 @@ namespace Consultorios
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "Consultorios", Version = "v1" });
             });
+
+            // INJEÇÃO DE DEPENDÊNCIAS
+
+            services.AddAutoMapper(typeof(Startup));
             services.AddScoped<IEmailService, EmailService>();
             services.AddScoped<IHttpService, HttpService>();
+            services.AddScoped<IBaseRepository, BaseRepository>();
+            services.AddScoped<IPacienteRepository, PacienteRepository>();
+
 
         }
 

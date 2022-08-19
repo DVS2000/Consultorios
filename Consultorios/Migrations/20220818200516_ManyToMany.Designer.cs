@@ -3,15 +3,17 @@ using System;
 using Consultorios.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace Consultorios.Migrations
 {
     [DbContext(typeof(ConsultoriosContext))]
-    partial class ConsultoriosContextModelSnapshot : ModelSnapshot
+    [Migration("20220818200516_ManyToMany")]
+    partial class ManyToMany
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -57,8 +59,6 @@ namespace Consultorios.Migrations
                     b.HasIndex("EspecialidadeId");
 
                     b.HasIndex("PacienteId");
-
-                    b.HasIndex("ProfissionalId");
 
                     b.ToTable("tb_consulta");
                 });
@@ -171,7 +171,7 @@ namespace Consultorios.Migrations
 
                     b.HasOne("Consultorios.Models.Entities.Profissional", "Profissional")
                         .WithMany("Consultas")
-                        .HasForeignKey("ProfissionalId")
+                        .HasForeignKey("PacienteId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 

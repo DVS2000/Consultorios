@@ -3,15 +3,17 @@ using System;
 using Consultorios.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace Consultorios.Migrations
 {
     [DbContext(typeof(ConsultoriosContext))]
-    partial class ConsultoriosContextModelSnapshot : ModelSnapshot
+    [Migration("20220818194126_OneToMany")]
+    partial class OneToMany
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -31,10 +33,6 @@ namespace Consultorios.Migrations
                         .HasColumnType("timestamp without time zone")
                         .HasColumnName("data_horario");
 
-                    b.Property<int>("EspecialidadeId")
-                        .HasColumnType("integer")
-                        .HasColumnName("id_especialidade");
-
                     b.Property<int>("PacienteId")
                         .HasColumnType("integer")
                         .HasColumnName("id_paciente");
@@ -44,21 +42,15 @@ namespace Consultorios.Migrations
                         .HasColumnType("numeric(7,2)")
                         .HasColumnName("preco");
 
-                    b.Property<int>("ProfissionalId")
-                        .HasColumnType("integer")
-                        .HasColumnName("id_profissional");
-
                     b.Property<int>("Status")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("integer")
+                        .HasDefaultValue(1)
                         .HasColumnName("status");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("EspecialidadeId");
-
                     b.HasIndex("PacienteId");
-
-                    b.HasIndex("ProfissionalId");
 
                     b.ToTable("tb_consulta");
                 });
@@ -72,7 +64,9 @@ namespace Consultorios.Migrations
                         .UseIdentityByDefaultColumn();
 
                     b.Property<bool>("Ativa")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("boolean")
+                        .HasDefaultValue(true)
                         .HasColumnName("ativa");
 
                     b.Property<string>("Nome")
@@ -126,7 +120,9 @@ namespace Consultorios.Migrations
                         .UseIdentityByDefaultColumn();
 
                     b.Property<bool>("Ativo")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("boolean")
+                        .HasDefaultValue(true)
                         .HasColumnName("activo");
 
                     b.Property<string>("Nome")
@@ -138,80 +134,18 @@ namespace Consultorios.Migrations
                     b.ToTable("tb_profissional");
                 });
 
-            modelBuilder.Entity("Consultorios.Models.Entities.ProfissionalEspecialidade", b =>
-                {
-                    b.Property<int>("ProfissionalId")
-                        .HasColumnType("integer")
-                        .HasColumnName("id_profissional");
-
-                    b.Property<int>("EspecialidadeId")
-                        .HasColumnType("integer")
-                        .HasColumnName("id_especialidade");
-
-                    b.HasKey("ProfissionalId", "EspecialidadeId");
-
-                    b.HasIndex("EspecialidadeId");
-
-                    b.ToTable("tb_profissional_especialidade");
-                });
-
             modelBuilder.Entity("Consultorios.Models.Entities.Consulta", b =>
                 {
-                    b.HasOne("Consultorios.Models.Entities.Especialidade", "Especialidade")
-                        .WithMany("Consultas")
-                        .HasForeignKey("EspecialidadeId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("Consultorios.Models.Entities.Paciente", "Paciente")
                         .WithMany("Consultas")
                         .HasForeignKey("PacienteId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Consultorios.Models.Entities.Profissional", "Profissional")
-                        .WithMany("Consultas")
-                        .HasForeignKey("ProfissionalId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Especialidade");
-
                     b.Navigation("Paciente");
-
-                    b.Navigation("Profissional");
-                });
-
-            modelBuilder.Entity("Consultorios.Models.Entities.ProfissionalEspecialidade", b =>
-                {
-                    b.HasOne("Consultorios.Models.Entities.Especialidade", "Especialidade")
-                        .WithMany()
-                        .HasForeignKey("EspecialidadeId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Consultorios.Models.Entities.Profissional", "Profissionais")
-                        .WithMany()
-                        .HasForeignKey("ProfissionalId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Especialidade");
-
-                    b.Navigation("Profissionais");
-                });
-
-            modelBuilder.Entity("Consultorios.Models.Entities.Especialidade", b =>
-                {
-                    b.Navigation("Consultas");
                 });
 
             modelBuilder.Entity("Consultorios.Models.Entities.Paciente", b =>
-                {
-                    b.Navigation("Consultas");
-                });
-
-            modelBuilder.Entity("Consultorios.Models.Entities.Profissional", b =>
                 {
                     b.Navigation("Consultas");
                 });
