@@ -2,10 +2,7 @@
 using Consultorios.Models.Dto;
 using Consultorios.Models.Entities;
 using Consultorios.Repository.Interfaces;
-using Consultorios.Services;
 using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
