@@ -26,9 +26,13 @@ namespace Consultorios.Helpers
                     opt => opt.MapFrom(src => src.Especialidades.Select(x => x.Nome).ToArray())
                 );
 
+            CreateMap<Profissional, ProfissionalDto>();
+
             CreateMap<ProfissionalAdicionarDto, Profissional>();
             CreateMap<ProfissionalAtualizarDto, Profissional>()
                 .ForAllMembers(opts => opts.Condition((src, dest, srcMember) => srcMember != null));
+
+            CreateMap<Especialidade, EspecialidadeDetalhesDto>();
         }
     }
 }

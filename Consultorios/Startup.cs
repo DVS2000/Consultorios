@@ -51,13 +51,13 @@ namespace Consultorios
             });
 
             // INJEÇÃO DE DEPENDÊNCIAS
-
             services.AddAutoMapper(typeof(Startup));
             services.AddScoped<IEmailService, EmailService>();
             services.AddScoped<IHttpService, HttpService>();
             services.AddScoped<IBaseRepository, BaseRepository>();
             services.AddScoped<IPacienteRepository, PacienteRepository>();
             services.AddScoped<IProfissionalRepository, ProfissionalRepository>();
+            services.AddScoped<IEspecialidadeRepository, EspecialidadeRepository>();
 
 
         }
