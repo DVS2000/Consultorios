@@ -76,6 +76,5 @@ namespace Consultorios.Controllers
             return await _repository.SaveChangesAsync() ? Ok("Status da Especialidade atualizada") : BadRequest("Erro ao atualizar status da especialidade");
 
         }
-
     }
 }

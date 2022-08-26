@@ -33,5 +33,13 @@ namespace Consultorios.Repository
                   .Where(x => x.Id == id)
                   .FirstOrDefaultAsync();
         }
+
+        public async Task<ProfissionalEspecialidade> GetProfissionalEspecialidade(int profissionalId, int especialidadeId)
+        {
+            return await _context.ProfissionalEspecialidades
+                .Where(x => x.ProfissionalId == profissionalId && x.EspecialidadeId == especialidadeId)
+                .FirstOrDefaultAsync();
+        }
+
     }
 }
