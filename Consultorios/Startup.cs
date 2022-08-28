@@ -58,6 +58,7 @@ namespace Consultorios
             services.AddScoped<IPacienteRepository, PacienteRepository>();
             services.AddScoped<IProfissionalRepository, ProfissionalRepository>();
             services.AddScoped<IEspecialidadeRepository, EspecialidadeRepository>();
+            services.AddScoped<IConsultaRepository, ConsultaRepository>();
 
 
         }
